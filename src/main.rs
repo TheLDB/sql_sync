@@ -6,7 +6,7 @@ use clap::Parser;
 
 // Local Files
 pub mod config;
-use config::create_config::{create_config, update_config, ISqlSyncConfig};
+use config::create_config::{create_config};
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -14,11 +14,8 @@ struct ISqlSyncArgs {
     // Args for clap CLI
 
     /// Create New Config - Config Name
-    #[clap(short = 'c', long = "create")]
+    #[clap(short = 'c', long)]
     create: Option<String>,
-
-    #[clap(short, long)]
-    update: Option<String>,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -27,16 +24,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(create) = args.create {
         // Create new config file
         let test = create_config(&create)?;
-        println!("{:?}", test);
-    }
-
-    if let Some(update) = args.update {
-        let test_conf = ISqlSyncConfig {
-            config_name: update.clone()
-        };
-
-        let test = update_config(&update, &test_conf)?;
-
         println!("{:?}", test);
     }
     Ok(())

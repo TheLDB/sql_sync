@@ -16,11 +16,3 @@ pub fn create_config(name: &str) -> Result<ISqlSyncConfig, confy::ConfyError> {
     let sql_sync_config: ISqlSyncConfig = confy::load(name)?;
     Ok(sql_sync_config)
 }
-
-pub fn update_config(name: &str, conf: &ISqlSyncConfig) -> Result<ISqlSyncConfig, confy::ConfyError> {
-    let update_config = confy::store(name, conf)?;
-
-    let updated_conf: ISqlSyncConfig = confy::load(name)?;
-
-    Ok(updated_conf)
-}
