@@ -1,5 +1,11 @@
+// 1st Party Libs
+
+
+// 3rd Party Libs
 use clap::Parser;
-use std::fs::File;
+
+// Local Files
+pub mod config;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -13,8 +19,11 @@ struct ISqlSyncArgs {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = ISqlSyncArgs::parse();
+
     if let Some(cn) = args.cn {
-        let mut new_config = File::create(format!("{}.toml", cn))?;
+        // Create new config file
+        let test = config::create_config::create_config(&cn)?;
+        println!("{:?}", test);
     }
 
     Ok(())
