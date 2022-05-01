@@ -1,6 +1,9 @@
-use serde::{Deserialize};
-use std::fs::{File, copy};
+use serde::Deserialize;
+use std::fs::{copy, File};
 use std::io::prelude::*;
+
+use crate::helpers::return_config_toml::return_config_toml;
+
 #[derive(Deserialize)]
 struct Config {
     name: String,
@@ -14,7 +17,6 @@ struct Server1 {
     port: i16,
 }
 
-
 #[derive(Deserialize)]
 struct Server2 {
     ip: String,
@@ -22,13 +24,13 @@ struct Server2 {
 }
 
 pub fn create(name: String) -> Result<(), Box<dyn std::error::Error>> {
-    // Get Toml Config Template contents
+    // Get base toml config
+    let config_toml = return_config_toml()?;
 
     // Create new .toml config file for config (with template)
-    File::create(format!("{}.toml", name))?;
-
-    copy("./src/template/config.toml", format!("{}.toml", name))?;
-
+    let mut config = File::create(format!("{}.toml", name))?;
+    config.write_all(config_toml.as_bytes())?;
+    
 
     Ok(())
 }

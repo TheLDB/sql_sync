@@ -6,6 +6,7 @@ use clap::Parser;
 
 // Local Files
 pub mod config;
+pub mod helpers;
 use config::create_config::{create};
 
 #[derive(Parser, Debug)]
