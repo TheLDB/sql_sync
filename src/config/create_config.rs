@@ -29,6 +29,8 @@ pub fn create(name: String) -> Result<(), Box<dyn std::error::Error>> {
 
     // Create new .toml config file for config (with template)
     let mut config = File::create(format!("{}.toml", name))?;
+
+    // Write config into file
     config.write_all(config_toml.as_bytes())?;
     
 
