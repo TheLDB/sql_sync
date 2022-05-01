@@ -6,7 +6,7 @@ use clap::Parser;
 
 // Local Files
 pub mod config;
-use config::create_config::{create_config};
+use config::create_config::{create};
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -21,10 +21,9 @@ struct ISqlSyncArgs {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = ISqlSyncArgs::parse();
 
-    if let Some(create) = args.create {
-        // Create new config file
-        let test = create_config(&create)?;
-        println!("{:?}", test);
+    if let Some(name) = args.create {
+        create(name)?;
     }
+    
     Ok(())
 }

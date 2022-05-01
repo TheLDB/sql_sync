@@ -1,18 +1,34 @@
-use serde::{Serialize, Deserialize};
-
-use crate::ISqlSyncArgs;
-
-// Struct for Confy config
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ISqlSyncConfig {
-    pub config_name: String,
+use serde::{Deserialize};
+use std::fs::{File, copy};
+use std::io::prelude::*;
+#[derive(Deserialize)]
+struct Config {
+    name: String,
+    server_1: Server1,
+    server_2: Server2,
 }
 
-impl ::std::default::Default for ISqlSyncConfig {
-    fn default() -> Self { Self { config_name: "".to_string() }}
+#[derive(Deserialize)]
+struct Server1 {
+    ip: String,
+    port: i16,
 }
 
-pub fn create_config(name: &str) -> Result<ISqlSyncConfig, confy::ConfyError> {
-    let sql_sync_config: ISqlSyncConfig = confy::load(name)?;
-    Ok(sql_sync_config)
+
+#[derive(Deserialize)]
+struct Server2 {
+    ip: String,
+    port: i16,
+}
+
+pub fn create(name: String) -> Result<(), Box<dyn std::error::Error>> {
+    // Get Toml Config Template contents
+
+    // Create new .toml config file for config (with template)
+    File::create(format!("{}.toml", name))?;
+
+    copy("./src/template/config.toml", format!("{}.toml", name))?;
+
+
+    Ok(())
 }
