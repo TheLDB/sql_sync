@@ -14,15 +14,15 @@ use config::create_config::{create};
 struct ISqlSyncArgs { 
     // Args for clap CLI
 
-    /// Create New Config - Config Name
-    #[clap(short = 'c', long)]
-    create: Option<String>,
+    /// Initialize sql_sync, create a new config w/ a name
+    #[clap(short = 'i', long)]
+    init: Option<String>,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = ISqlSyncArgs::parse();
 
-    if let Some(name) = args.create {
+    if let Some(name) = args.init {
         create(name)?;
     }
     

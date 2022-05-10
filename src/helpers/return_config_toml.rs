@@ -9,7 +9,8 @@ port = 3006
     
 [server_2]
 ip = "192.168.1.1"
-port = 3006"#;
+port = 3006
+"#;
 
     Ok(config_toml)
 }

@@ -1,1 +1,5 @@
-/target
+# Rust Build Folder
+target/
+
+# Cache/Clutter
+.DS_Store
